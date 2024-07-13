@@ -34,7 +34,7 @@ const ClientForm = () => {
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className='flex-1 space-y-6'>
                 <section className="mb-12 space-y-4">
-                    <h1 className="mb-12 space-y-4">Hello Client 🤝</h1>
+                    <h1 className="mb-12 space-y-4 text-5xl">Hello Clients  💚</h1>
                     <p className="text-dark-700">Get started with appointment</p>
                 </section>
 

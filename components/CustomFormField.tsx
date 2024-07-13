@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import React from 'react'
 import { Control, Field } from 'react-hook-form';
-import { FormControl, FormField, FormItem, FormLabel } from './ui/form';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from './ui/form';
 import { Input } from './ui/input';
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
+import { E164Number } from "libphonenumber-js/core"
 
 
 export enum FormFieldType {
@@ -69,7 +70,7 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
                         placeholder={props.placeholder}
                         international
                         withCountryCallingCode
-                        value={field.value as any}
+                        value={field.value as E164Number | undefined}
                         onChange={field.onChange}
                         className='input-phone'
                     />
@@ -95,6 +96,7 @@ const CustomFormField = (props: CustomProps) => {
                         <FormLabel className='shad-input-label'>{label}</FormLabel>
                     )}
                     <RenderInput field={field} props={props} />
+                    <FormMessage className='shad-error' />
                 </FormItem>
             )}
         >
