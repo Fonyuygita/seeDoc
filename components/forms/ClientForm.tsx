@@ -8,8 +8,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '../ui/form';
 import CustomFormField, { FormFieldType } from '../CustomFormField';
 import SubmitButton from '../SubmitButton';
+import { createUser } from '@/lib/actions/patient.action';
+import { useRouter } from 'next/navigation';
 
 const ClientForm = () => {
+    const router = useRouter()
     const [isLoading, setIsLoading] = useState(false);
     const form = useForm<z.infer<typeof UserFormValidation>>({
         resolver: zodResolver(UserFormValidation),
@@ -20,16 +23,33 @@ const ClientForm = () => {
         }
     });
 
-    const onSubmit = async (value: z.infer<typeof UserFormValidation>) => {
+    const onSubmit = async (values: z.infer<typeof UserFormValidation>) => {
         setIsLoading(true);
+
+        try {
+            const users = {
+                name: values.name,
+                email: values.email,
+                phone: values.phone
+            };
+            const newUser = await createUser(users);
+
+            if (newUser) {
+                router.push(`/patient/${newUser.$id}/register`)
+            }
+        } catch (err) {
+            // \catch errors if any
+            console.log(err);
+
+        }
+
+        setIsLoading(false)
+
+
+
     }
 
-    try {
-        // Take user information to database
-    } catch (err) {
-        // \catch errors if any
 
-    }
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className='flex-1 space-y-6'>
