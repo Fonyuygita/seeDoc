@@ -1,0 +1,127 @@
+"use client"
+
+import { UserFormValidation } from '@/lib/validation';
+import { useForm } from "react-hook-form"
+import React, { useState } from 'react'
+import { z } from "zod"
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Form } from '../ui/form';
+import CustomFormField, { FormFieldType } from '../CustomFormField';
+import SubmitButton from '../SubmitButton';
+import { createUser } from '@/lib/actions/patient.actions';
+import { useRouter } from 'next/navigation';
+
+const ClientForm = () => {
+    const router = useRouter()
+    const [isLoading, setIsLoading] = useState(false);
+    const form = useForm<z.infer<typeof UserFormValidation>>({
+        resolver: zodResolver(UserFormValidation),
+        defaultValues: {
+            name: "",
+            email: "",
+            phone: ""
+        }
+    });
+
+    const onSubmit = async ({ name, email, phone }: z.infer<typeof UserFormValidation>) => {
+        setIsLoading(true);
+
+        try {
+
+        } catch (err) {
+            // \catch errors if any
+            console.log(err);
+            // router.push(`/patient/${newUser.$id}/register`)
+
+
+        }
+
+        setIsLoading(false)
+
+
+
+    }
+
+
+    return (
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='flex-1 space-y-6'>
+                <section className="mb-12 space-y-4">
+                    <h1 className="mb-12 space-y-4 text-5xl text-white">Welcome Back 👋</h1>
+                    <p className="text-dark-700">Please provide us with the following information about yourself</p>
+                </section>
+
+                <section className="space-y-6">
+                    <div className="mb-9 space-y-1">
+                        <h2 className="sub-header">Your personal Info</h2>
+                    </div>
+                </section>
+
+                {/*  YOUR NAME */}
+                <CustomFormField
+                    fieldType={FormFieldType.INPUT}
+                    control={form.control}
+                    name="name"
+                    label="Full names"
+                    placeholder="Fonyuy Gita"
+                    iconSrc="/assets/icons/user.svg"
+                    iconAlt='user'
+                />
+
+                {/* YOUR EMAIL AND PHONE */}
+                <div className="flex flex-col gap-6 xl:flex-row">
+
+                    <CustomFormField
+                        fieldType={FormFieldType.INPUT}
+                        control={form.control}
+                        name="email"
+                        label="Email"
+                        placeholder="gita@email.com"
+                        iconSrc="/assets/icons/email.svg"
+                        iconAlt='email'
+                    />
+
+                    <CustomFormField
+                        fieldType={FormFieldType.PHONE_NUMBER}
+                        control={form.control}
+                        name="phone"
+                        label="Phone number"
+                        placeholder="(+237) 123-466"
+
+                    />
+                </div>
+
+                {/* Birth date and gender */}
+
+                <div className="flex flex-col gap-6 xl:flex-row">
+
+
+                    <CustomFormField
+                        fieldType={FormFieldType.DATE_PICKER}
+                        control={form.control}
+                        name="DateBirth"
+                        label="Date of Birth"
+
+                    />
+
+                    <CustomFormField
+                        fieldType={FormFieldType.SKELETON}
+                        control={form.control}
+                        name="phone"
+                        label="Phone number"
+                        placeholder="(+237) 123-466"
+
+                    />
+                </div>
+
+                <SubmitButton
+                    isLoading={isLoading}
+                >Start Now</SubmitButton>
+
+
+            </form>
+        </Form>
+    )
+}
+
+export default ClientForm

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
-import { ThemeProvider } from "@/components/theme-provider";
+// import { cn } from "@/lib/utils";
+// import { ThemeProvider } from "@/components/theme-provider";
 
 const fontSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -12,7 +12,7 @@ const fontSans = Plus_Jakarta_Sans({
 
 
 export const metadata: Metadata = {
-  title: "seeDoc",
+  title: "seeDocs",
   description: "make an appointment with your favorite Doctor",
 };
 
@@ -23,13 +23,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn('min-h-screen bg-dark-300 font-sans antialiased', fontSans.variable)}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-        >
-          {children}
-        </ThemeProvider>
+      <body className='min-h-screen bg-dark-300 font-sans antialiased'>
+
+        {children}
+
       </body>
     </html>
   );

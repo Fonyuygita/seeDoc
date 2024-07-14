@@ -15,11 +15,11 @@ export default function Home() {
             alt="patient"
             className="mb-12 h-10 w-fit"
           />
-          <h2 className="text-2xl text-white">Patient Form here</h2>
+          <h2 className="text-2xl text-white">Patients Form here</h2>
           <ClientForm />
           <div className="text-l4 regular mt-20 flex justify-between">
             <p className="justify-items-end text-dark-600 xl:text-left">
-              @ 2024 SeedInnovate
+              @ 2024 SeedInnovatess
             </p>
             <Link href="/?admin=true" className="text-green-500">Admin?</Link>
           </div>

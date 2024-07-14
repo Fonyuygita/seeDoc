@@ -27,16 +27,16 @@ const ClientForm = () => {
         setIsLoading(true);
 
         try {
-            const user = {
+            const userData = {
                 name,
                 email,
                 phone
             };
-            const newUser = await createUser(user);
+            const newUser = await createUser(userData);
             console.log(newUser)
 
             if (newUser) {
-                router.push(`/patient/${newUser.$id}/register`)
+                router.push(`/patient/${newUser?.$id}/register`)
             }
         } catch (err) {
             // \catch errors if any
@@ -57,7 +57,7 @@ const ClientForm = () => {
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className='flex-1 space-y-6'>
                 <section className="mb-12 space-y-4">
-                    <h1 className="mb-12 space-y-4 text-5xl">Hello Clients  💚</h1>
+                    <h1 className="mb-12 space-y-4 text-5xl text-white">Hello Clients  💚</h1>
                     <p className="text-dark-700">Get started with appointment</p>
                 </section>
 
