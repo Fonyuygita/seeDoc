@@ -34,9 +34,12 @@ const ClientForm = () => {
             };
             const newUser = await createUser(userData);
             console.log(newUser)
+            router.push(`/patient/${123}/register`)
+
 
             if (newUser) {
                 router.push(`/patient/${newUser?.$id}/register`)
+                console.log(newUser);
             }
         } catch (err) {
             // \catch errors if any
@@ -58,7 +61,7 @@ const ClientForm = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className='flex-1 space-y-6'>
                 <section className="mb-12 space-y-4">
                     <h1 className="mb-12 space-y-4 text-5xl text-white">Hello Clients  💚</h1>
-                    <p className="text-dark-700">Get started with appointment</p>
+                    <p className="text-dark-700">Get started with appointments</p>
                 </section>
 
                 <CustomFormField
