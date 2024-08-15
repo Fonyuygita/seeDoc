@@ -29,12 +29,13 @@ export const Register = () => {
             </section>
 
             {/* right side section */}
+
             <Image
                 src="/assets/images/register-img.png"
                 height={1000}
                 width={1000}
                 alt="doctor_picture"
-                className="side-img max-w-[50%]"
+                className="side-img max-w-[50%] "
             />
         </div>
     );
