@@ -12,9 +12,10 @@ import { createUser } from '@/lib/actions/patient.actions';
 import { useRouter } from 'next/navigation';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 import { Label } from '../ui/label';
-import { Doctors, GenderOptions } from '@/constants';
+import { Doctors, GenderOptions, IdentificationTypes } from '@/constants';
 import { SelectItem } from '../ui/select';
 import Image from 'next/image';
+import FileUploader from '../FileUploader';
 
 const ClientForm = () => {
     const router = useRouter()
@@ -265,6 +266,69 @@ const ClientForm = () => {
                     <div className="mb-9 space-y-1 mt-[3rem]">
                         <h2 className="sub-header">Identification and Verfication</h2>
                     </div>
+                    <CustomFormField
+                        fieldType={FormFieldType.SELECT}
+                        control={form.control}
+                        name="identificationType"
+                        label="Identification Type"
+                        placeholder="Select identification type"
+                    >
+                        {IdentificationTypes.map((type, i) => (
+                            <SelectItem key={type + i} value={type}>
+                                {type}
+                            </SelectItem>
+                        ))}
+                    </CustomFormField>
+
+                    <CustomFormField
+                        fieldType={FormFieldType.INPUT}
+                        control={form.control}
+                        name="identificationNumber"
+                        label="Identification Number"
+                        placeholder="123456789"
+                    />
+
+                    <CustomFormField
+                        fieldType={FormFieldType.SKELETON}
+                        control={form.control}
+                        name="identificationDocument"
+                        label="Scanned Copy of Identification Document"
+                        renderSkeleton={(field) => (
+                            <FormControl>
+                                <FileUploader files={field.value} onChange={field.onChange} />
+                            </FormControl>
+                        )}
+                    />
+
+                </section>
+
+                <section className="space-y-6">
+                    <div className="mb-9 space-y-1">
+                        <h2 className="sub-header">Consent and Privacy</h2>
+                    </div>
+
+                    <CustomFormField
+                        fieldType={FormFieldType.CHECKBOX}
+                        control={form.control}
+                        name="treatmentConsent"
+                        label="I consent to receive treatment for my health condition."
+                    />
+
+                    <CustomFormField
+                        fieldType={FormFieldType.CHECKBOX}
+                        control={form.control}
+                        name="disclosureConsent"
+                        label="I consent to the use and disclosure of my health
+            information for treatment purposes."
+                    />
+
+                    <CustomFormField
+                        fieldType={FormFieldType.CHECKBOX}
+                        control={form.control}
+                        name="privacyConsent"
+                        label="I acknowledge that I have reviewed and agree to the
+            privacy policy"
+                    />
                 </section>
 
                 <SubmitButton
