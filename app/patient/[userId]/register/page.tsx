@@ -1,10 +1,14 @@
 import ClientForm from "@/components/forms/ClientForm";
 import RegisterForm from "@/components/forms/RegisterForm";
 import { Button } from "@/components/ui/button";
+import { getUser } from "@/lib/actions/patient.actions";
 import Image from "next/image";
 import Link from "next/link";
 
-export const Register = () => {
+export const Register = async ({ params: { userId } }: SearchParamProps) => {
+    const user = await getUser(userId)
+    console.log(userId);
+
     return (
         <div className="flex h-screen max-h-screen">
             <section className="remove-scrollbar container ">
@@ -17,7 +21,7 @@ export const Register = () => {
                         className="mb-12 h-10 w-fit"
                     />
 
-                    <RegisterForm />
+                    <RegisterForm user={user} />
                     <div className="text-l4 regular mt-20 flex justify-between">
                         <p className="justify-items-end text-dark-600 xl:text-left">
                             @ 2024 SeedInnovate
@@ -31,7 +35,7 @@ export const Register = () => {
             {/* right side section */}
 
             <Image
-                src="/assets/images/register-img.png"
+                src="/assets/images/register.svg"
                 height={1000}
                 width={1000}
                 alt="doctor_picture"

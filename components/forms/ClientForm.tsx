@@ -34,7 +34,7 @@ const ClientForm = () => {
             };
             const newUser = await createUser(userData);
             console.log(newUser)
-            router.push(`/patient/${123}/register`)
+            // router.push(`/patient/${newUser.$id}/register`)
 
 
             if (newUser) {

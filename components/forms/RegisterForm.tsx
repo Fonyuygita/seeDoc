@@ -1,6 +1,6 @@
 "use client"
 
-import { UserFormValidation } from '@/lib/validation';
+import { PatientFormValidation, UserFormValidation } from '@/lib/validation';
 import { useForm } from "react-hook-form"
 import React, { useState } from 'react'
 import { z } from "zod"
@@ -8,31 +8,65 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl } from '../ui/form';
 import CustomFormField, { FormFieldType } from '../CustomFormField';
 import SubmitButton from '../SubmitButton';
-import { createUser } from '@/lib/actions/patient.actions';
+import { createUser, registerPatient } from '@/lib/actions/patient.actions';
 import { useRouter } from 'next/navigation';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 import { Label } from '../ui/label';
-import { Doctors, GenderOptions, IdentificationTypes } from '@/constants';
+import { Doctors, GenderOptions, IdentificationTypes, PatientFormDefaultValues } from '@/constants';
 import { SelectItem } from '../ui/select';
 import Image from 'next/image';
 import FileUploader from '../FileUploader';
 
-const ClientForm = () => {
+const RegisterForm = ({ user }: { user: User }) => {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false);
-    const form = useForm<z.infer<typeof UserFormValidation>>({
-        resolver: zodResolver(UserFormValidation),
+
+    //  HANDLE FORM SUBMISSION DATA
+    const form = useForm<z.infer<typeof PatientFormValidation>>({
+        resolver: zodResolver(PatientFormValidation),
         defaultValues: {
+            ...PatientFormDefaultValues,
             name: "",
             email: "",
             phone: ""
         }
     });
 
-    const onSubmit = async ({ name, email, phone }: z.infer<typeof UserFormValidation>) => {
+
+    const onSubmit = async (values: z.infer<typeof PatientFormValidation>) => {
         setIsLoading(true);
 
+        //  STORE FILE INFO IN FORM DATA
+        let formData;
+
+        // if identification docs exist, and convert data to blob before sending
+        if (values.identificationDocument && values.identificationDocument?.length > 0) {
+
+            const blobFile = new Blob([values.identificationDocument[0]], {
+                type: values.identificationDocument[0].type,
+            })
+
+            formData = new FormData();
+            formData.append("blobFile", blobFile);
+            formData.append("fileName", values.identificationDocument[0].name)
+
+        }
+
+
         try {
+            // get the data we want to send to db
+            const patientData = {
+                ...values,
+                userId: user.$id,
+                birthDate: new Date(values.birthDate),
+                identificationDocument: formData
+            }
+
+            // @ts-ignore
+
+            const patient = await registerPatient(patientData)
+
+            if (patient) router.push(`/patients/${user.$id}/new-appointment`)
 
         } catch (err) {
             // \catch errors if any
@@ -341,4 +375,4 @@ const ClientForm = () => {
     )
 }
 
-export default ClientForm
+export default RegisterForm
