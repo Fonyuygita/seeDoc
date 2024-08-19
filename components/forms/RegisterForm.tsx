@@ -45,10 +45,11 @@ const RegisterForm = ({ user }: { user: User }) => {
             const blobFile = new Blob([values.identificationDocument[0]], {
                 type: values.identificationDocument[0].type,
             })
-
+            console.log(blobFile);
             formData = new FormData();
             formData.append("blobFile", blobFile);
             formData.append("fileName", values.identificationDocument[0].name)
+            console.log(formData);
 
         }
 
@@ -64,9 +65,11 @@ const RegisterForm = ({ user }: { user: User }) => {
 
             // @ts-ignore
 
-            const patient = await registerPatient(patientData)
+            const newPatient = await registerPatient(patientData)
+            console.log("hello data");
+            console.log(newPatient);
 
-            if (patient) router.push(`/patients/${user.$id}/new-appointment`)
+            if (newPatient) router.push(`/patient/${user.$id}/new-appointment`)
 
         } catch (err) {
             // \catch errors if any
