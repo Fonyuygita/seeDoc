@@ -1,11 +1,14 @@
 import ClientForm from "@/components/forms/ClientForm";
+import { PasskeyModal } from "@/components/PassKeyModal";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+const Home = ({ searchParams }: SearchParamProps) => {
+  const isAdmin = searchParams?.admin === "true";
 
-export default function Home() {
   return (
     <div className="flex h-screen max-h-screen">
+      {isAdmin && <PasskeyModal />}
       <section className="remove-scrollbar container my-auto">
         <div className="sub-container max-w-[496px]">
           <Image
@@ -38,3 +41,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home
