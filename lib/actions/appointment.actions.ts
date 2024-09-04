@@ -87,6 +87,8 @@ export const getRecentAppointmentList = async () => {
       cancelledCount: 0,
     };
 
+    // The initialCounts object is used as the initial value for the accumulator.
+
     const counts = (appointments.documents as Appointment[]).reduce(
       (acc, appointment) => {
         switch (appointment.status) {
