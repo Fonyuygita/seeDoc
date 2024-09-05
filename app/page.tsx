@@ -38,7 +38,7 @@ const Home = ({ searchParams }: SearchParamProps) => {
         alt="doctor_picture"
         className="side-img max-w-[50%]"
       />
-      <h1>Say hi here please</h1>
+      {/* <h1>Say hi here please</h1> */}
 
     </div>
   );
