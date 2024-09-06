@@ -89,6 +89,24 @@ export const AppointmentForm = ({
                     );
                 }
             }
+
+            else {
+                const updatedAppointment = {
+                    userId,
+                    appointmentId: appointment?.$id!,
+                    appointment: {
+                        primaryPhysician: values.primaryPhysician,
+                        schedule: new Date(values.schedule),
+                        status: status as Status,
+                        cancellationReason: values.cancellationReason
+
+                    },
+                    type,
+
+                }
+            }
+
+            // const appointmentUpdates=await updateAppointment(updatedAppointment)
         }
         catch (error) {
             console.log(error);
