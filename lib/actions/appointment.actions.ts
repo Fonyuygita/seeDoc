@@ -121,3 +121,33 @@ export const getRecentAppointmentList = async () => {
     );
   }
 };
+
+//  UPDATE APPOINTMENT
+
+export const updateAppointment = async ({
+  appointmentId,
+  userId,
+  appointment,
+  type,
+}: UpdateAppointmentParams) => {
+  try {
+    const updatedAppointment = await databases.updateDocument(
+      DATABASE_ID!,
+      APPOINTMENT_COLLECTION_ID!,
+      appointmentId,
+      appointment
+    );
+
+    if (!updatedAppointment) return Error;
+
+    // TODO:  confirm message with twilo
+    // Update page without refreshing
+    revalidatePath("/admin");
+    return parseStringify(updatedAppointment);
+  } catch (err) {
+    console.log(
+      "Error occurred while trying to schedule an appointment: ",
+      err
+    );
+  }
+};

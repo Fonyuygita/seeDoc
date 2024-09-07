@@ -46,7 +46,18 @@ export const columns: ColumnDef<Appointment>[] = [
             return <p className="text-14-medium ">{appointment.patient.name}</p>;
         },
     },
-
+    {
+        accessorKey: "status",
+        header: "Status",
+        cell: ({ row }) => {
+            const appointment = row.original;
+            return (
+                <div className="min-w-[115px]">
+                    <StatusBadge status={appointment.status} />
+                </div>
+            );
+        },
+    },
     {
         accessorKey: "schedule",
         header: "Appointment",
