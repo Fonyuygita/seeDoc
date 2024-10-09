@@ -60,7 +60,7 @@ const AdminPage = async () => {
                     />
                 </section>
 
-                <DataTable columns={columns} data={appointments.documents} />
+                <DataTable columns={columns} data={appointments?.documents} />
             </main>
         </div>
     );
