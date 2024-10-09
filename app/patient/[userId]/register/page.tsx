@@ -5,7 +5,7 @@ import { getUser } from "@/lib/actions/patient.actions";
 import Image from "next/image";
 import Link from "next/link";
 
-export const Register = async ({ params: { userId } }: SearchParamProps) => {
+const Register = async ({ params: { userId } }: SearchParamProps) => {
     const user = await getUser(userId)
     console.log(userId);
 
