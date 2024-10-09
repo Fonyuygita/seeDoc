@@ -1,47 +1,22 @@
-import ClientForm from "@/components/forms/ClientForm";
-import { PasskeyModal } from "@/components/PassKeyModal";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import Link from "next/link";
-const Home = ({ searchParams }: SearchParamProps) => {
-  const isAdmin = searchParams?.admin === "true";
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image'
 
+const page: React.FC = () => {
   return (
-    <div className="flex h-screen max-h-screen">
-      {isAdmin && <PasskeyModal />}
-      <section className="remove-scrollbar container my-auto">
-        <div className="sub-container max-w-[496px]">
-          <Image
-            src="/assets/icons/logo-full.svg"
-            height={1000}
-            width={1000}
-            alt="patient"
-            className="mb-12 h-10 w-fit"
-          />
-          <h2 className="text-2xl text-white">Patients Form here</h2>
-          <ClientForm />
-          <div className="text-l4 regular mt-20 flex justify-between">
-            <p className="justify-items-end text-dark-600 xl:text-left">
-              @ 2024 SeedInnovatess
-            </p>
-            <Link href="/?admin=true" className="text-green-500">Admin?</Link>
-          </div>
+    <div className="flex flex-col items-center justify-center min-h-screen ">
+      <Image src="/assets/images/doc5.png" width={300} height={300} alt="Doctor" className="md:w-1/3 mb-8 w-full h-fit rounded-2xl px-5" />
+      <h1 className="md:text-3xl  text-xl font-bold mb-4">
+        <span className="typewriter">NO STRESS CONSULTATION 😃
+        </span>
+      </h1>
+      <p className="text-lg text-gray-300 mb-8">Consult With No Stress.</p>
+      <Link href="/home" className="px-6 py-3 bg-green-700 text-white rounded-lg shadow-md hover:bg-green-600 transition duration-300" >
 
-        </div>
-      </section>
+        Get Started
 
-      {/* right side section */}
-      <Image
-        src="/assets/images/doc5.png"
-        height={1000}
-        width={1000}
-        alt="doctor_picture"
-        className="side-img max-w-[50%]"
-      />
-      {/* <h1>Say hi here please</h1> */}
-
+      </Link>
     </div>
   );
-}
-
-export default Home
+};
+export default page;

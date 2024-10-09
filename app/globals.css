@@ -21,6 +21,21 @@
     border-radius: 0px;
   }
 
+
+  @keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  border-right: .15em solid orange;
+  white-space: nowrap;
+  animation: typewriter 4s steps(40, end) 1;
+}
+
+
   .remove-scrollbar::-webkit-scrollbar-thumb:hover {
     /* background: #1e2238; */
     background: transparent;

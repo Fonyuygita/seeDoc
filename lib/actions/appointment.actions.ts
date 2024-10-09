@@ -140,7 +140,18 @@ export const updateAppointment = async ({
 
     if (!updatedAppointment) return Error;
 
-    // TODO:  confirm message with twilo
+    // TODO:   confirm message with twilo
+
+    const smsMessage = `Greetings from CarePulse. ${
+      type === "schedule"
+        ? `Your appointment is confirmed for ${
+            formatDateTime(appointment.schedule!).dateTime
+          } with Dr. ${appointment.primaryPhysician}`
+        : `We regret to inform that your appointment for ${
+            formatDateTime(appointment.schedule!).dateTime
+          } is cancelled. Reason:  ${appointment.cancellationReason}`
+    }.`;
+    await sendSMSNotification(userId, smsMessage);
     // Update page without refreshing
     revalidatePath("/admin");
     return parseStringify(updatedAppointment);
@@ -149,5 +160,21 @@ export const updateAppointment = async ({
       "Error occurred while trying to schedule an appointment: ",
       err
     );
+  }
+};
+
+//  SEND SMS NOTIFICATION
+export const sendSMSNotification = async (userId: string, content: string) => {
+  try {
+    // https://appwrite.io/docs/references/1.5.x/server-nodejs/messaging#createSms
+    const message = await messaging.createSms(
+      ID.unique(),
+      content,
+      [],
+      [userId]
+    );
+    return parseStringify(message);
+  } catch (error) {
+    console.error("An error occurred while sending sms:", error);
   }
 };

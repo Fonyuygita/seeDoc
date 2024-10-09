@@ -28,7 +28,7 @@ const AdminPage = async () => {
                     />
                 </Link>
 
-                <p className="text-16-semibold">Admin Dashboard</p>
+                <p className="text-16-semibold">Talk Health Admin Dashboard</p>
             </header>
 
             <main className="admin-main">
