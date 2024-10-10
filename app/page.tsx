@@ -16,6 +16,8 @@ const page: React.FC = () => {
         Get Started
 
       </Link>
+
+      <Link href="/?admin=true" className="text-green-500">Admin?</Link>
     </div>
   );
 };

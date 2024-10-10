@@ -81,6 +81,7 @@ export const AppointmentForm = ({
                 };
 
                 const newAppointment = await createAppointment(appointment);
+                console.log(newAppointment)
 
                 if (newAppointment) {
                     form.reset();
